@@ -2,6 +2,7 @@ import type { Config } from "@measured/puck";
 
 type Props = {
   HeadingBlock: { title: string };
+  Example: { items: { title: string }[] };
 };
 
 export const config: Config<Props> = {
@@ -18,6 +19,25 @@ export const config: Config<Props> = {
           <h1>{title}</h1>
         </div>
       ),
+    },
+    Example: {
+      fields: {
+        items: {
+          type: "array",
+          arrayFields: {
+            title: { type: "text" },
+          },
+        },
+      },
+      render: ({ items }) => {
+        return (
+          <ul>
+            {items.map((item, i) => (
+              <li key={i}>{item.title}</li>
+            ))}
+          </ul>
+        );
+      },
     },
   },
 };
